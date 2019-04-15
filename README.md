@@ -1,4 +1,8 @@
 # TFM_DNN_Recomendator
-Custom Recomendator for my Master Final Project
+Custom Recomendator for my Master Final Project.
+
+- Hybrid recommendator that combines the power of text and images, this gives personalitzation.
+- I did the project using Python, pandas, scikit-learn and Keras.
+- Data scrapped from ecommerce WebPage and not shared
 
 ![alt text](Arquitectura_TFM.png "Title")
