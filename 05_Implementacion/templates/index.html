@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>DNN Recommmendator</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="shortcut icon" href="/static/images/lstm.ico">
+  
+</head>
+
+<body>
+  <div class="container">
+    <h1>
+      <center>Products Recommendator</center>
+    </h1>
+
+    {% block content %}
+    {% for message in form.customer.errors %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.top.errors %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    <form method=post>
+
+      {{ form.customer.label }}
+      {{ form.customer }}
+
+      {{ form.top.label }}
+      {{ form.top }}
+
+      {{ form.submit }}
+    </form>
+    {% endblock %}
+
+  </div>
+</body>
