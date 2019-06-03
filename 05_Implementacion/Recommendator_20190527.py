@@ -101,9 +101,6 @@ def diversify(arr, diversity, plot = False):
     return probas
 
 
-# In[12]:
-
-
 def recommend(model, customer  , N = 5):
     print (data_processed.head())
     print(data_vec[:1])
@@ -140,3 +137,40 @@ def recommend(model, customer  , N = 5):
         print(f'Exception: {e}')
         print(f'\nThe customer {customer} does not exist')
 
+
+def recommend_1(model, customer  , N = 5):
+    text = ''
+    try:
+        _data = data_processed[data_processed['customer_id_int'] == customer]
+        _data_vec = data_vec[_data.index]
+        _pred = model.predict([_data['customer_id_int'], _data['item_id_int'], 
+                             _data['brand_id'], _data['PRICE'],
+                             _data_vec, _data['item_age'], _data['score'],
+                             _data['power_price'], _data['power_score'], _data['power_item_age'],
+                             _data['sqrt_price'], _data['sqrt_score'], _data['sqrt_item_age']],
+                             batch_size = 1, verbose = 0)
+        _pred = pd.DataFrame(_pred)
+        _pred['customer_id_int'] = customer
+        _pred = _pred.groupby(['customer_id_int']).max()
+        del _pred.index.name
+        
+    #########################################################
+        #_pred = diversify(_pred.values.reshape(_pred.shape[1]), diversity = 0.7, plot = False)
+        #print(_pred)
+        text += '\n' + '=='*30 + '\n'
+        text += '==> Top ' + str(N) + 'Recommended items to Customer ' + str(customer) + ': '
+        text += '\nThe customer ' + str(customer) + 'has bought this items: '
+        text += '\n' + '=='*30 + '\n'
+        interacted_items = data_processed[['text', 'score_original']][data_processed['customer_id_int'] == customer].groupby('text')                            .sum().reset_index().sort_values(['score_original'], ascending = False)
+        text += '\n'.join([str(i+1) + str(' - ') + str(x) for i, x in enumerate(interacted_items['text'].values[0:20])])
+        top = _pred.values.reshape(_pred.shape[1]).argsort()[-N:][::-1] #items positions
+        text += '\n====================== IDs DE PRODUCTOS RECOMENDADOS =============='
+        text += ''.join([str(items_map[item]) for item in top])
+        text += "\n===================== PRODUCTOS RECOMENDADOS ====================="
+        text += '\n'.join([str(i+1) + str(' - ') + str(items_map_text[x]) for i, x in enumerate(top)])
+        text += "=================================================================="
+    except Exception as e:
+        print(f'Exception: {e}')
+        print(f'\nThe customer {customer} does not exist')
+
+    return text
