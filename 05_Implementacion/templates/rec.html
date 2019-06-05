@@ -5,15 +5,18 @@
   <title>Your Recommendations</title>
   <link rel="stylesheet" href="/static/css/main.css">
   
+  <ul>
+        <li><a href="/">Home</a></li>
+  </ul>
+
 </head>
 
 <body>
-    <h1> Your Recommendations </h1>
     <div class="container">
-
-      <h3> The customer has bought these items: </h3>
         {% block content %}
         {{input|safe}}
         {% endblock %}
     </div>
 </body>
+</html>
+

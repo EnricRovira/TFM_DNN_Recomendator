@@ -28,7 +28,7 @@ from gensim.models import Word2Vec
 
 
 path = os.path.join('../../Data/')
-data = pd.read_csv(path + 'data_filtered_20190422.csv', sep = ';')
+#data = pd.read_csv(path + 'data_filtered_20190422.csv', sep = ';')
 data_processed = pd.read_csv(path + 'data_final_20190525.csv')
 data_processed['text'] = data_processed['text'].astype(str)
 
@@ -49,19 +49,6 @@ idx_customers_map = {i:val for i,val in enumerate(data_processed['customer_id_in
 idx_customers_df = pd.DataFrame({'idx': data_processed.index.values, 'customer_id_int': data_processed.customer_id_int})
 
 
-# In[7]:
-
-
-data.head(3)
-
-
-# In[8]:
-
-
-data_processed.head(3)
-
-
-# In[9]:
 
 
 MAX_NB_WORDS = 30_000 #decided by cumsum wordcount plot (Script 01)
@@ -87,59 +74,30 @@ global graph
 graph = tf.get_default_graph()
 
 
-def diversify(arr, diversity, plot = False):
-    div = np.log(arr) / diversity
-    exp_preds = np.exp(div)
-    preds = exp_preds / np.sum(exp_preds)
-    if plot:
-        plt.figure(figsize = (10, 8));
-        plt.subplot(2, 1, 1);
-        sns.distplot(arr); plt.title('Original Distribution');
-        plt.subplot(2, 1, 2);
-        sns.distplot(preds); plt.title(f'Distribution with {diversity} diversity')
-    probas = np.random.multinomial(1, preds, 1)
-    return probas
+def header(text, color='black', gen_text=None, size = 54):
+    """Create an HTML header"""
 
+    if gen_text:
+        raw_html = f'<h1 style="margin-top:16px;color: {color};font-size:{size}px"><center>' + str(
+            text) + '<span style="color: red">' + str(gen_text) + '</center></h1>'
+    else:
+        raw_html = f'<h1 style="margin-top:12px;color: {color};font-size:{size}px"><center>' + str(
+            text) + '</center></h1>'
+    return raw_html
 
-def recommend(model, customer  , N = 5):
-    print (data_processed.head())
-    print(data_vec[:1])
-    try:
-        _data = data_processed[data_processed['customer_id_int'] == customer]
-        _data_vec = data_vec[_data.index]
-        _pred = model.predict([_data['customer_id_int'], _data['item_id_int'], 
-                             _data['brand_id'], _data['PRICE'],
-                             _data_vec, _data['item_age'], _data['score'],
-                             _data['power_price'], _data['power_score'], _data['power_item_age'],
-                             _data['sqrt_price'], _data['sqrt_score'], _data['sqrt_item_age']],
-                             batch_size = 1, verbose = 0)
-        _pred = pd.DataFrame(_pred)
-        _pred['customer_id_int'] = customer
-        _pred = _pred.groupby(['customer_id_int']).max()
-        del _pred.index.name
-        
-    #########################################################
-        #_pred = diversify(_pred.values.reshape(_pred.shape[1]), diversity = 0.7, plot = False)
-        #print(_pred)
-        print('\n' + '=='*30 + '\n')
-        print(f'==> Top {N} Recommended items to Customer {customer}: ')
-        print(f'\nThe customer {customer} has bought this items: ')
-        print('\n' + '=='*30 + '\n')
-        interacted_items = data_processed[['text', 'score_original']][data_processed['customer_id_int'] == customer].groupby('text')                            .sum().reset_index().sort_values(['score_original'], ascending = False)
-        print('\n'.join([str(i+1) + str(' - ') + str(x) for i, x in enumerate(interacted_items['text'].values[0:20])]))
-        top = _pred.values.reshape(_pred.shape[1]).argsort()[-N:][::-1] #items positions
-        print('\n====================== IDs DE PRODUCTOS RECOMENDADOS ==============')
-        print([items_map[item] for item in top])
-        print ("\n===================== PRODUCTOS RECOMENDADOS =====================")
-        print('\n'.join([str(i+1) + str(' - ') + str(items_map_text[x]) for i, x in enumerate(top)]))
-        print ("==================================================================")
-    except Exception as e:
-        print(f'Exception: {e}')
-        print(f'\nThe customer {customer} does not exist')
+def box(text):
+    """Create an HTML box of text"""
+    raw_html = '<div style="border-bottom:1px inset black;border-top:1px inset black;padding:8px;font-size: 21px;">' + str(
+            text) + '</div>'
+    return raw_html
 
 
 def recommend_1(model, customer  , N = 5):
+    items_bought = ''
+    items_rec = ''
     text = ''
+    html = ''
+    
     try:
         _data = data_processed[data_processed['customer_id_int'] == customer]
         _data_vec = data_vec[_data.index]
@@ -155,22 +113,20 @@ def recommend_1(model, customer  , N = 5):
         del _pred.index.name
         
     #########################################################
-        #_pred = diversify(_pred.values.reshape(_pred.shape[1]), diversity = 0.7, plot = False)
-        #print(_pred)
-        text += '\n' + '=='*30 + '\n'
-        text += '==> Top ' + str(N) + 'Recommended items to Customer ' + str(customer) + ': '
-        text += '\nThe customer ' + str(customer) + 'has bought this items: '
-        text += '\n' + '=='*30 + '\n'
+
         interacted_items = data_processed[['text', 'score_original']][data_processed['customer_id_int'] == customer].groupby('text')                            .sum().reset_index().sort_values(['score_original'], ascending = False)
-        text += '\n'.join([str(i+1) + str(' - ') + str(x) for i, x in enumerate(interacted_items['text'].values[0:20])])
+        items_bought += '<br/>'.join([str(i+1) + str(' - ') + str(x) for i, x in enumerate(interacted_items['text'].values[0:20])])
         top = _pred.values.reshape(_pred.shape[1]).argsort()[-N:][::-1] #items positions
-        text += '\n====================== IDs DE PRODUCTOS RECOMENDADOS =============='
-        text += ''.join([str(items_map[item]) for item in top])
-        text += "\n===================== PRODUCTOS RECOMENDADOS ====================="
-        text += '\n'.join([str(i+1) + str(' - ') + str(items_map_text[x]) for i, x in enumerate(top)])
-        text += "=================================================================="
+        items_rec += '<br/>'.join([str(i+1) + str(' - ') + str(items_map_text[x]) for i, x in enumerate(top)])
+        
     except Exception as e:
         print(f'Exception: {e}')
         print(f'\nThe customer {customer} does not exist')
 
-    return text
+    html = header('', color = 'black', gen_text = f'Customer {customer} Recommendations')  
+    html += header(text = f'Items bought by Customer {customer}:', size = 40)
+    html += box(items_bought)
+    html += header(text = f'Top {N} Items recommended to Customer {customer}:', size = 40)
+    html += box(items_rec)
+        
+    return f'<div>{html}</div>'
