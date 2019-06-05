@@ -79,7 +79,7 @@ def header(text, color='black', gen_text=None, size = 54):
 
     if gen_text:
         raw_html = f'<h1 style="margin-top:16px;color: {color};font-size:{size}px"><center>' + str(
-            text) + '<span style="color: red">' + str(gen_text) + '</center></h1>'
+            text) + '<span style="color: #00BFFF">' + str(gen_text) + '</center></h1>'
     else:
         raw_html = f'<h1 style="margin-top:12px;color: {color};font-size:{size}px"><center>' + str(
             text) + '</center></h1>'
@@ -118,7 +118,7 @@ def recommend_1(model, customer  , N = 5):
         items_bought += '<br/>'.join([str(i+1) + str(' - ') + str(x) for i, x in enumerate(interacted_items['text'].values[0:20])])
         top = _pred.values.reshape(_pred.shape[1]).argsort()[-N:][::-1] #items positions
         items_rec += '<br/>'.join([str(i+1) + str(' - ') + str(items_map_text[x]) for i, x in enumerate(top)])
-        
+
     except Exception as e:
         print(f'Exception: {e}')
         print(f'\nThe customer {customer} does not exist')
