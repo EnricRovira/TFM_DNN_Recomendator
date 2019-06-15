@@ -19,9 +19,11 @@ As input receives the purchase history of customers with their corresponding ite
 - Download the code from GitHub:
 
 ```bash
-https://github.com/EnricRovira/TFM_DNN_Recomendator
+git clone https://github.com/EnricRovira/TFM_DNN_Recomendator
 cd TFM_DNN_Recomendator
 ```
+
+## Interface
 
 
 
