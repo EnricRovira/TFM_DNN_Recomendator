@@ -17,3 +17,4 @@ tensorboard==1.13.1
 tensorflow==1.13.1
 tensorflow-estimator==1.13.0
 wget==3.2
+wtforms==2.2.1
