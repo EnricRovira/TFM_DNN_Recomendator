@@ -5,4 +5,4 @@ Custom Recomendator for my Master Final Project.
 - I did the project using Python, pandas, scikit-learn and Keras.
 - Data scrapped from ecommerce WebPage and not shared
 
-![alt text](ArquitecturaGeneral.png "Title")
+![alt text](ArquitecturaGeneral.PNG "Title")
