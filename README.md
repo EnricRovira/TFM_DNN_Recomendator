@@ -41,6 +41,29 @@ cd ./FinalModel/Models/download_models.txt
 cd ./FinalModel/Scripts/
 ```
 
+## Demo
+
+ If you want to test the Demo with my data, proceed as follows:
+ 
+ - Go to Demo folder:
+ 
+ ```bash
+cd ./FinalModel/Demo/
+```
+
+- Add Flask App to environment:
+
+ ```python
+set FLASK_APP=WebService.py
+```
+
+- Run WebService App:
+
+ ```python
+flask run
+```
+
+- Open your browser and go to **localhost:5000**:
 
 ## Interface
 
