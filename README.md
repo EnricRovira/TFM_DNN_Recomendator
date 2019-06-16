@@ -15,13 +15,30 @@ As input receives the purchase history of customers with their corresponding ite
 
 ## Getting started
 
-- Install the python libraries (3.7) . [See Requirements](https://github.com/EnricRovira/TFM_DNN_Recomendator/blob/master/requirements.txt)
 - Download the code from GitHub:
 
 ```bash
 git clone https://github.com/EnricRovira/TFM_DNN_Recomendator
 cd TFM_DNN_Recomendator
 ```
+- Install the python libraries (3.7) . [See Requirements](https://github.com/EnricRovira/TFM_DNN_Recomendator/blob/master/requirements.txt)
+
+- Go to Data folder and download all the data from the link:
+
+```bash
+cd ./FinalModel/Data/download_data.txt
+```
+- Go to Models folder and download all the data from the link:
+
+```bash
+cd ./FinalModel/Models/download_models.txt
+```
+- Go to Scripts folder and run the notebooks:
+
+```bash
+cd ./FinalModel/Scripts/
+```
+
 
 ## Interface
 
