@@ -37,5 +37,5 @@ cd TFM_DNN_Recomendator
 
 ## References
 
-- [Kschool](https://kschool.com/) ![alt text](/Images/logo_kschool.png "kschool")
-- [My Linkedin](https://www.linkedin.com/in/enric-rovira-a30195a1/) ![alt text](/Images/logo_linkedin.png "Linkedin") 
+- [Kschool ](https://kschool.com/) ![alt text](/Images/logo_kschool.png "kschool")
+- [My Linkedin ](https://www.linkedin.com/in/enric-rovira-a30195a1/) ![alt text](/Images/logo_linkedin.png "Linkedin") 
