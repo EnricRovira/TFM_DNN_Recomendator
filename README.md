@@ -56,5 +56,5 @@ cd ./FinalModel/Scripts/
 
 ## References
 
-- [Kschool](https://kschool.com/) ![alt text](/Images/logo_kschool.png "kschool")
-- [My Linkedin](https://www.linkedin.com/in/enric-rovira-a30195a1/) [<img src="/Images/logo_kschool.png">](https://www.linkedin.com/in/enric-rovira-a30195a1/)
+- [Kschool](https://kschool.com/) [<img src="/Images/logo_kschool.png">](https://www.kschool.com)
+- [My Linkedin](https://www.linkedin.com/in/enric-rovira-a30195a1/) [<img src="/Images/logo_linkedin.png">](https://www.linkedin.com/in/enric-rovira-a30195a1/)
