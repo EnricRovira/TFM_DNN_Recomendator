@@ -15,7 +15,7 @@ As input receives the purchase history of customers with their corresponding ite
 
 ## Getting started
 
-- Project Explanation on [Thesis](https://github.com/EnricRovira/TFM_DNN_Recomendator/blob/master/thesis.pdf) doc (Spanish)
+- Project Explanation on [Thesis](https://github.com/EnricRovira/TFM_DNN_Recomendator/blob/master/Thesis.pdf) doc (Spanish)
 
 - Download the code from GitHub:
 
