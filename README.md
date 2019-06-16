@@ -30,3 +30,12 @@ cd TFM_DNN_Recomendator
 ![alt text](/Images/Interface3.PNG "Int2")
 
 ### Layout
+
+- The index page request the user for a customer and a top N recommendations.
+- When the 'enter' button is pressed, the webform send the arguments to the recommendation function that launches the prediction for that customer and gets the historic data and the recommended items.
+- The next page is redirected automatically in which we can see the customer historical boughts and the recommendations, with the option to return home.
+
+## References
+
+[Kschool](https://kschool.com/)
+[My Linkedin](https://www.linkedin.com/in/enric-rovira-a30195a1/)
