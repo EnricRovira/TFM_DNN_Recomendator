@@ -43,7 +43,7 @@ cd ./FinalModel/Scripts/
 
 ## Demo
 
- If you want to test the Demo with my data, proceed as follows:
+ If you want to test the Demo with my data first follow *Geting Started* steps and later on, proceed as follows:
  
  - Go to Demo folder:
  
