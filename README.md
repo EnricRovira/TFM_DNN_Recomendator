@@ -23,7 +23,7 @@ cd TFM_DNN_Recomendator
 ```
 - Install the python libraries (3.7) . [See Requirements](https://github.com/EnricRovira/TFM_DNN_Recomendator/blob/master/requirements.txt)
 
-- Go to Data folder and download all the data from the link:
+- Go to Data folder and download all the data from the link, dont forget to unzip the images folder:
 
 ```bash
 cd ./FinalModel/Data/download_data.txt
